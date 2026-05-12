@@ -10,6 +10,8 @@ Streamlit Cloud URL: _add after deployment._
 
 The dashboard bootstraps demo data automatically if generated exports are missing.
 
+![SaaS Analytics Dashboard](dashboard/screenshots/saas_dashboard.png)
+
 ## Architecture
 
 ```mermaid
