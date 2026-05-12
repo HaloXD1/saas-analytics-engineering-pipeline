@@ -79,8 +79,12 @@ def build_marts(database_path: Path) -> dict[str, pd.DataFrame]:
             "executive_overview": connection.sql("SELECT * FROM executive_overview").df(),
             "mart_mrr": connection.sql("SELECT * FROM mart_mrr ORDER BY invoice_month").df(),
             "mart_churn": connection.sql("SELECT * FROM mart_churn ORDER BY churn_month").df(),
-            "mart_feature_adoption": connection.sql("SELECT * FROM mart_feature_adoption ORDER BY active_users DESC").df(),
-            "mart_customer_health": connection.sql("SELECT * FROM mart_customer_health ORDER BY health_score DESC").df(),
+            "mart_feature_adoption": connection.sql(
+                "SELECT * FROM mart_feature_adoption ORDER BY active_users DESC"
+            ).df(),
+            "mart_customer_health": connection.sql(
+                "SELECT * FROM mart_customer_health ORDER BY health_score DESC"
+            ).df(),
         }
 
 

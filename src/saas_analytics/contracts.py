@@ -68,13 +68,40 @@ def _date_issues(table_name: str, frame: pd.DataFrame, contract: dict[str, Any])
     issues = []
     for column, rules in contract.get("date_columns", {}).items():
         parsed = pd.to_datetime(frame[column], errors="coerce")
-        issues.extend(_issue_rows(frame[parsed.isna()], table_name, "invalid_date", column, "Date cannot be parsed", contract.get("unique_key")))
+        issues.extend(
+            _issue_rows(
+                frame[parsed.isna()],
+                table_name,
+                "invalid_date",
+                column,
+                "Date cannot be parsed",
+                contract.get("unique_key"),
+            )
+        )
         if rules.get("min"):
             below = parsed.notna() & (parsed < pd.Timestamp(rules["min"]))
-            issues.extend(_issue_rows(frame[below], table_name, "date_below_min", column, f"Before {rules['min']}", contract.get("unique_key")))
+            issues.extend(
+                _issue_rows(
+                    frame[below],
+                    table_name,
+                    "date_below_min",
+                    column,
+                    f"Before {rules['min']}",
+                    contract.get("unique_key"),
+                )
+            )
         if rules.get("max"):
             above = parsed.notna() & (parsed > pd.Timestamp(rules["max"]))
-            issues.extend(_issue_rows(frame[above], table_name, "date_above_max", column, f"After {rules['max']}", contract.get("unique_key")))
+            issues.extend(
+                _issue_rows(
+                    frame[above],
+                    table_name,
+                    "date_above_max",
+                    column,
+                    f"After {rules['max']}",
+                    contract.get("unique_key"),
+                )
+            )
     return issues
 
 
@@ -82,11 +109,24 @@ def _numeric_issues(table_name: str, frame: pd.DataFrame, contract: dict[str, An
     issues = []
     for column, rules in contract.get("numeric_ranges", {}).items():
         values = pd.to_numeric(frame[column], errors="coerce")
-        issues.extend(_issue_rows(frame[values.isna()], table_name, "invalid_numeric", column, "Not numeric", contract.get("unique_key")))
+        issues.extend(
+            _issue_rows(
+                frame[values.isna()], table_name, "invalid_numeric", column, "Not numeric", contract.get("unique_key")
+            )
+        )
         if "min" in rules:
             minimum = float(rules["min"])
             below = values <= minimum if rules.get("inclusive_min") is False else values < minimum
-            issues.extend(_issue_rows(frame[values.notna() & below], table_name, "numeric_below_min", column, f"Minimum {minimum}", contract.get("unique_key")))
+            issues.extend(
+                _issue_rows(
+                    frame[values.notna() & below],
+                    table_name,
+                    "numeric_below_min",
+                    column,
+                    f"Minimum {minimum}",
+                    contract.get("unique_key"),
+                )
+            )
     return issues
 
 
@@ -95,7 +135,16 @@ def _allowed_value_issues(table_name: str, frame: pd.DataFrame, contract: dict[s
     for column, allowed_values in contract.get("allowed_values", {}).items():
         allowed = {str(value).lower() for value in allowed_values}
         invalid = ~frame[column].astype(str).str.lower().isin(allowed)
-        issues.extend(_issue_rows(frame[invalid], table_name, "invalid_allowed_value", column, "Unexpected value", contract.get("unique_key")))
+        issues.extend(
+            _issue_rows(
+                frame[invalid],
+                table_name,
+                "invalid_allowed_value",
+                column,
+                "Unexpected value",
+                contract.get("unique_key"),
+            )
+        )
     return issues
 
 
@@ -110,7 +159,16 @@ def _foreign_key_issues(
         parent = raw_tables[rule["table"]]
         parent_keys = set(parent[rule["column"]].astype(str))
         missing = ~frame[column].astype(str).isin(parent_keys)
-        issues.extend(_issue_rows(frame[missing], table_name, "missing_foreign_key", column, f"Missing {rule['table']}.{rule['column']}", contract.get("unique_key")))
+        issues.extend(
+            _issue_rows(
+                frame[missing],
+                table_name,
+                "missing_foreign_key",
+                column,
+                f"Missing {rule['table']}.{rule['column']}",
+                contract.get("unique_key"),
+            )
+        )
     return issues
 
 
@@ -124,7 +182,11 @@ def _issue_rows(
 ) -> list[dict[str, str]]:
     if frame.empty:
         return []
-    references = frame[reference_column].astype(str) if reference_column and reference_column in frame.columns else frame.index.astype(str)
+    references = (
+        frame[reference_column].astype(str)
+        if reference_column and reference_column in frame.columns
+        else frame.index.astype(str)
+    )
     return [
         {
             "table_name": table_name,

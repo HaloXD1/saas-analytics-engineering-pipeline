@@ -31,10 +31,17 @@ def main() -> None:
         print(f"Dashboard exports: {outputs['exports']}")
     elif args.command == "validate-contracts":
         settings = load_settings()
-        issues = validate_contracts(read_raw_tables(settings), load_contracts(project_path(settings["contracts"]["path"])))
+        issues = validate_contracts(
+            read_raw_tables(settings), load_contracts(project_path(settings["contracts"]["path"]))
+        )
         print(f"Contract issues found: {len(issues)}")
         if not issues.empty:
-            print(issues.groupby(["table_name", "issue_type"]).size().reset_index(name="issue_count").to_string(index=False))
+            print(
+                issues.groupby(["table_name", "issue_type"])
+                .size()
+                .reset_index(name="issue_count")
+                .to_string(index=False)
+            )
     elif args.command == "export-marts":
         marts = export_existing_marts()
         print("Exported marts:")

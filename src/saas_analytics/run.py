@@ -8,7 +8,7 @@ import pandas as pd
 from saas_analytics.config import ensure_parent, load_settings, project_path
 from saas_analytics.contracts import load_contracts, read_raw_tables, validate_contracts
 from saas_analytics.markdown import dataframe_to_markdown
-from saas_analytics.warehouse import build_marts, clean_tables, export_marts, load_warehouse
+from saas_analytics.warehouse import clean_tables, export_marts, load_warehouse
 
 
 def run_pipeline(mode: str = "full") -> dict[str, Path]:
@@ -21,7 +21,7 @@ def run_pipeline(mode: str = "full") -> dict[str, Path]:
     database_path = project_path(settings["paths"]["warehouse"])
     export_paths = _export_paths(settings)
     loaded_counts = load_warehouse(database_path, clean, mode)
-    marts = export_marts(database_path, export_paths)
+    export_marts(database_path, export_paths)
     _write_quality_outputs(raw_tables, clean, issues, export_paths, settings)
     _write_run_summary(started_at, mode, raw_tables, clean, loaded_counts, export_paths, settings)
     return {"database": database_path, "exports": project_path(settings["paths"]["exports"])}
@@ -83,7 +83,11 @@ def _write_quality_outputs(
         "",
         "## Issue Breakdown",
         "",
-        dataframe_to_markdown(issues.groupby(["table_name", "issue_type"]).size().reset_index(name="issue_count") if not issues.empty else pd.DataFrame()),
+        dataframe_to_markdown(
+            issues.groupby(["table_name", "issue_type"]).size().reset_index(name="issue_count")
+            if not issues.empty
+            else pd.DataFrame()
+        ),
         "",
     ]
     project_path(settings["paths"]["docs"]).mkdir(parents=True, exist_ok=True)
