@@ -1,0 +1,29 @@
+[project]
+name = "saas-analytics-engineering-pipeline"
+version = "0.1.0"
+description = "SaaS analytics engineering pipeline with DuckDB marts and Streamlit dashboard."
+requires-python = ">=3.12"
+dependencies = [
+    "duckdb>=1.1",
+    "pandas>=2.2",
+    "plotly>=6.0",
+    "pyyaml>=6.0",
+    "streamlit>=1.40",
+]
+
+[project.scripts]
+saas-analytics = "saas_analytics.cli:main"
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "pytest-cov>=6.0",
+    "ruff>=0.8",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+
+[tool.ruff]
+line-length = 120

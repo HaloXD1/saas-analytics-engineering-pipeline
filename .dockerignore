@@ -1,0 +1,12 @@
+.git/
+.github/
+.pytest_cache/
+.ruff_cache/
+.venv/
+__pycache__/
+*.pyc
+*.egg-info/
+.DS_Store
+data/raw/*
+data/warehouse/*
+data/exports/*

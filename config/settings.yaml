@@ -1,0 +1,35 @@
+paths:
+  raw: data/raw
+  warehouse: data/warehouse/saas_analytics.duckdb
+  exports: data/exports
+  docs: docs
+
+raw_files:
+  customers: data/raw/customers.csv
+  subscriptions: data/raw/subscriptions.csv
+  invoices: data/raw/invoices.csv
+  product_events: data/raw/product_events.jsonl
+  support_tickets: data/raw/support_tickets.csv
+
+exports:
+  executive_overview: data/exports/executive_overview.csv
+  mart_mrr: data/exports/mart_mrr.csv
+  mart_churn: data/exports/mart_churn.csv
+  mart_feature_adoption: data/exports/mart_feature_adoption.csv
+  mart_customer_health: data/exports/mart_customer_health.csv
+  data_quality_issues: data/exports/data_quality_issues.csv
+  data_quality_summary: data/exports/data_quality_summary.csv
+  pipeline_run_summary: data/exports/pipeline_run_summary.csv
+
+contracts:
+  path: config/data_contracts.yaml
+
+quality:
+  minimum_quality_score: 0.90
+
+generator:
+  seed: 77
+  customers: 100
+  months: 12
+  events: 1800
+  tickets: 140

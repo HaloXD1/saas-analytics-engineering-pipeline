@@ -1,0 +1,60 @@
+customers:
+  required_columns: [customer_id, customer_name, segment, country, signup_date]
+  unique_key: customer_id
+  id_pattern: "^C-\\d{4}$"
+  date_columns:
+    signup_date: {min: "2024-01-01", max: "2025-12-31"}
+  allowed_values:
+    segment: [Startup, SMB, Mid-Market, Enterprise]
+
+subscriptions:
+  required_columns: [subscription_id, customer_id, plan, start_date, end_date, status, mrr]
+  unique_key: subscription_id
+  id_pattern: "^S-\\d{5}$"
+  date_columns:
+    start_date: {min: "2024-01-01", max: "2025-12-31"}
+  numeric_ranges:
+    mrr: {min: 0, inclusive_min: false}
+  allowed_values:
+    plan: [Starter, Growth, Scale]
+    status: [trial, active, cancelled]
+  foreign_keys:
+    customer_id: {table: customers, column: customer_id}
+
+invoices:
+  required_columns: [invoice_id, customer_id, invoice_month, amount, status]
+  unique_key: invoice_id
+  id_pattern: "^I-\\d{6}$"
+  date_columns:
+    invoice_month: {min: "2025-01-01", max: "2025-12-31"}
+  numeric_ranges:
+    amount: {min: 0, inclusive_min: false}
+  allowed_values:
+    status: [paid, failed, refunded]
+  foreign_keys:
+    customer_id: {table: customers, column: customer_id}
+
+product_events:
+  required_columns: [event_id, customer_id, user_id, event_time, feature, event_type]
+  unique_key: event_id
+  id_pattern: "^E-\\d{7}$"
+  date_columns:
+    event_time: {min: "2025-01-01", max: "2025-12-31"}
+  allowed_values:
+    feature: [Dashboard, Reports, Automation, Integrations, Billing]
+    event_type: [view, click, export, create]
+  foreign_keys:
+    customer_id: {table: customers, column: customer_id}
+
+support_tickets:
+  required_columns: [ticket_id, customer_id, opened_date, priority, status, category]
+  unique_key: ticket_id
+  id_pattern: "^T-\\d{5}$"
+  date_columns:
+    opened_date: {min: "2025-01-01", max: "2025-12-31"}
+  allowed_values:
+    priority: [low, medium, high]
+    status: [open, solved]
+    category: [billing, bug, onboarding, feature_request]
+  foreign_keys:
+    customer_id: {table: customers, column: customer_id}

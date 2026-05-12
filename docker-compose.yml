@@ -1,0 +1,10 @@
+services:
+  dashboard:
+    build: .
+    ports:
+      - "8502:8501"
+    command: streamlit run app/streamlit_dashboard.py --server.address=0.0.0.0 --server.port=8501
+
+  pipeline:
+    build: .
+    command: saas-analytics run-pipeline --mode full

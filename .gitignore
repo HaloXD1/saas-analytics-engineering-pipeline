@@ -1,0 +1,15 @@
+.venv/
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.DS_Store
+*.egg-info/
+*.pyc
+data/raw/*
+data/warehouse/*
+data/exports/*
+!data/raw/.gitkeep
+!data/warehouse/.gitkeep
+!data/exports/.gitkeep
