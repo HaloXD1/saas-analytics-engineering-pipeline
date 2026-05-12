@@ -49,27 +49,27 @@ with tab_exec:
     cols[4].metric("Avg Health", f"{overview['average_health_score']:.1f}")
     left, right = st.columns(2)
     with left:
-        st.plotly_chart(px.line(mrr, x="invoice_month", y="mrr", markers=True), use_container_width=True)
+        st.plotly_chart(px.line(mrr, x="invoice_month", y="mrr", markers=True), width="stretch")
     with right:
-        st.plotly_chart(px.bar(adoption, x="feature", y="active_users", color="feature"), use_container_width=True)
+        st.plotly_chart(px.bar(adoption, x="feature", y="active_users", color="feature"), width="stretch")
 
 with tab_revenue:
     st.subheader("Monthly Recurring Revenue")
-    st.plotly_chart(px.bar(mrr, x="invoice_month", y="mrr", labels={"mrr": "MRR"}), use_container_width=True)
-    st.dataframe(mrr, use_container_width=True, hide_index=True)
+    st.plotly_chart(px.bar(mrr, x="invoice_month", y="mrr", labels={"mrr": "MRR"}), width="stretch")
+    st.dataframe(mrr, width="stretch", hide_index=True)
 
 with tab_churn:
     st.subheader("Churned Customers and MRR")
     if churn.empty:
         st.info("No churn in current generated dataset.")
     else:
-        st.plotly_chart(px.bar(churn, x="churn_month", y="churned_customers"), use_container_width=True)
-        st.dataframe(churn, use_container_width=True, hide_index=True)
+        st.plotly_chart(px.bar(churn, x="churn_month", y="churned_customers"), width="stretch")
+        st.dataframe(churn, width="stretch", hide_index=True)
 
 with tab_usage:
     st.subheader("Feature Adoption")
-    st.plotly_chart(px.bar(adoption, x="feature", y="events", color="feature"), use_container_width=True)
-    st.dataframe(adoption, use_container_width=True, hide_index=True)
+    st.plotly_chart(px.bar(adoption, x="feature", y="events", color="feature"), width="stretch")
+    st.dataframe(adoption, width="stretch", hide_index=True)
 
 with tab_health:
     st.subheader("Customer Health")
@@ -77,12 +77,12 @@ with tab_health:
     view = health[health["segment"].isin(segment)]
     st.plotly_chart(
         px.scatter(view, x="revenue", y="product_events", color="segment", size="health_score"),
-        use_container_width=True,
+        width="stretch",
     )
-    st.dataframe(view.head(25), use_container_width=True, hide_index=True)
+    st.dataframe(view.head(25), width="stretch", hide_index=True)
 
 with tab_quality:
     st.subheader("Data Quality")
     st.metric("Average Quality Score", f"{quality['quality_score'].mean() * 100:.1f}%")
-    st.plotly_chart(px.bar(quality, x="table_name", y="quality_score", color="table_name"), use_container_width=True)
-    st.dataframe(quality, use_container_width=True, hide_index=True)
+    st.plotly_chart(px.bar(quality, x="table_name", y="quality_score", color="table_name"), width="stretch")
+    st.dataframe(quality, width="stretch", hide_index=True)
