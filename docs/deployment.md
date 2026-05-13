@@ -2,6 +2,8 @@
 
 Use Streamlit Community Cloud.
 
+Live demo: https://ahmed-saas-analytics-pipeline.streamlit.app/
+
 Settings:
 
 - Repository: `HaloXD1/saas-analytics-engineering-pipeline`

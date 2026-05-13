@@ -6,7 +6,7 @@ SaaS analytics engineering portfolio project that turns customer, billing, subsc
 
 ## Live Demo
 
-Streamlit Cloud URL: _add after deployment._
+Streamlit Cloud URL: https://ahmed-saas-analytics-pipeline.streamlit.app/
 
 The dashboard bootstraps demo data automatically if generated exports are missing.
 
