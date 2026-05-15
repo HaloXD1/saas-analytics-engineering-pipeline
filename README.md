@@ -1,6 +1,6 @@
 # SaaS Analytics Engineering Pipeline
 
-[![Tests](https://github.com/HaloXD1/saas-analytics-engineering-pipeline/actions/workflows/tests.yml/badge.svg)](https://github.com/HaloXD1/saas-analytics-engineering-pipeline/actions/workflows/tests.yml)
+[![Tests](https://github.com/AhmedYasserShalaby/saas-analytics-engineering-pipeline/actions/workflows/tests.yml/badge.svg)](https://github.com/AhmedYasserShalaby/saas-analytics-engineering-pipeline/actions/workflows/tests.yml)
 
 SaaS analytics engineering portfolio project that turns customer, billing, subscription, support, and product-event data into DuckDB/Parquet layers, trusted KPI marts, and a Streamlit dashboard.
 

@@ -6,7 +6,7 @@ Live demo: https://ahmed-saas-analytics-pipeline.streamlit.app/
 
 Settings:
 
-- Repository: `HaloXD1/saas-analytics-engineering-pipeline`
+- Repository: `AhmedYasserShalaby/saas-analytics-engineering-pipeline`
 - Branch: `main`
 - Main file: `app/streamlit_dashboard.py`
 - Python: `runtime.txt`
