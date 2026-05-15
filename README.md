@@ -85,8 +85,6 @@ pytest --cov=src/saas_analytics --cov-report=term-missing
 - [Data model](docs/data_model.md)
 - [KPI definitions](docs/kpi_definitions.md)
 - [Data contracts](docs/data_contracts.md)
-- [Deployment](docs/deployment.md)
-- [Interview guide](docs/interview_guide.md)
 
 ## CV Bullets
 

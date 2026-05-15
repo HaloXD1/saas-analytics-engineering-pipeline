@@ -13,3 +13,11 @@ data/exports/*
 !data/raw/.gitkeep
 !data/warehouse/.gitkeep
 !data/exports/.gitkeep
+
+# Internal planning / prep notes kept local only.
+docs/ROADMAP.md
+docs/deployment.md
+docs/goal_runs/
+docs/interview_guide.md
+docs/run_summary.md
+docs/skill_sprint/
