@@ -86,7 +86,7 @@ pytest --cov=src/saas_analytics --cov-report=term-missing
 - [KPI definitions](docs/kpi_definitions.md)
 - [Data contracts](docs/data_contracts.md)
 
-## CV Bullets
+## Project Summary
 
 - Built a SaaS analytics engineering pipeline that ingests customer, billing, subscription, support, and product-event data into DuckDB/Parquet layers and exports trusted KPI marts.
 - Modeled MRR, churn, trial conversion, product adoption, and customer health metrics with SQL transformations, data contracts, incremental loading, and automated quality checks.
